@@ -13,6 +13,14 @@ For any continuous function $f(x)$,
 
 The bisection method is an approximation method to find the roots of the given equation by repeatedly dividing the interval. This method will divide the interval until the resulting interval is found, which is extremely small.
 
+## Hint
+
+```go
+// SolveBisect uses the bisection approximation method to find the root
+// of the given `f` with the given precision `eps`.
+func SolveBisect(f func(float64) float64, a, b float64, eps float64) float64
+```
+
 ## Exercises
 
 - $x^3-2x=5$
