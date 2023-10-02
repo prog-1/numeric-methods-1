@@ -18,7 +18,7 @@ The bisection method is an approximation method to find the roots of the given e
 ```go
 // SolveBisect uses the bisection approximation method to find the root
 // of the given `f` with the given precision `eps`.
-func SolveBisect(f func(float64) float64, a, b float64, eps float64) float64
+func SolveBisect(a, b float64, eps float64, f func(float64) float64) float64
 ```
 
 ## Exercises
