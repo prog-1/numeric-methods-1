@@ -59,7 +59,7 @@ func TestSolveSecant(t *testing.T) {
 			return 2*math.Sin(x) + 1.5
 		}}, -0.84806},
 	} {
-		if got := SolveSecant(tc.input.a, tc.input.b, tc.input.eps, tc.input.f); math.Abs(got-tc.want) > tc.input.eps {
+		if got := SolveSecantImproved(tc.input.a, tc.input.b, tc.input.eps, tc.input.f); math.Abs(got-tc.want) > tc.input.eps {
 			t.Errorf("SolveSecant failed %s: got = %f, want = %f", tc.name, got, tc.want)
 		}
 	}

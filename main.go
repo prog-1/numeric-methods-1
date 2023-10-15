@@ -5,8 +5,6 @@ import (
 	"math"
 )
 
-// SolveBisect uses the bisection approximation method to find the root
-// of the given `f` with the given precision `eps`.
 func SolveBisect(a, b float64, eps float64, f func(float64) float64) float64 {
 	fa, fb := f(a), f(b)
 	if fa*fb >= 0 {
@@ -25,8 +23,6 @@ func SolveBisect(a, b float64, eps float64, f func(float64) float64) float64 {
 	}
 }
 
-// SolveSecant uses the secant approximation method to find the root
-// of the given `f` with the given precision `eps`.
 func SolveSecant(a, b float64, eps float64, f func(float64) float64) float64 {
 	fa, fb := f(a), f(b)
 	var c, fc float64
@@ -40,8 +36,43 @@ func SolveSecant(a, b float64, eps float64, f func(float64) float64) float64 {
 	}
 }
 
+func SolveSecantImproved(a, b float64, eps float64, f func(float64) float64) float64 {
+	// The point of improvement is that in case intersection of our secant
+	// with OX axis is beyond the range from x0 to x1, then in further calculations
+	// we can use the nearest argument out of the initial two.
+	fa, fb := f(a), f(b)
+	var c, fc float64
+	for {
+		c = (a*fb - b*fa) / (fb - fa)
+		// How to check whether c is within the range from a to b?
+		// Option 1:
+		if a > b {
+			if c > a {
+				c = a
+			} else if c < b {
+				c = b
+			}
+		} else {
+			if c < a {
+				c = a
+			} else if c > b {
+				c = b
+			}
+		}
+		/////////////////////////////
+		fc = f(c)
+		if math.Abs(fc) <= eps {
+			return c
+		}
+		a, b, fa, fb = b, c, fb, fc
+	}
+}
+
 func main() {
-	fmt.Println(SolveSecant(-1.5, 1, 1e-3, func(x float64) float64 {
-		return 2*math.Sin(x) + 1.5
-	})) // -0.84806
+	// fmt.Println(SolveSecantImproved(-1.570796315078, 1, 1e-3, func(x float64) float64 {
+	// 	return 2*math.Sin(x) + 1.5
+	// })) // -0.84806
+	fmt.Println(SolveSecantImproved(1.089, 5.148, 1e-3, func(x float64) float64 {
+		return (x-3)*math.Sin(x) - 0.00501
+	})) //3.071
 }
