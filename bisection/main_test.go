@@ -21,7 +21,7 @@ func TestSolveBisect(t *testing.T) {
 	} {
 		t.Run(tc.name, func(t *testing.T) {
 			if got := SolveBisect(tc.a, tc.b, 1e-4, tc.f); math.Abs(got-tc.want) > 1e-4 {
-				t.Errorf("testcase =%v  got = %v, want = %v", tc.name, got, tc.want)
+				t.Errorf("testcase %v  got = %v, want = %v", tc.name, got, tc.want)
 			}
 		})
 	}
