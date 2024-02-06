@@ -8,13 +8,14 @@ import (
 func SolveNewton(x0, eps float64, f func(float64) float64) float64 {
 	var count int
 	for dx := eps; math.Abs(f(x0)) > eps; count++ {
-		dy := f(x0+dx) - f(x0)
+		fx0 := f(x0)
+		dy := f(x0+dx) - fx0
 		k := dy / dx // it's also the derivative of the function
-		x1 := x0 - f(x0)/k
+		x1 := x0 - fx0/k
 		dx = x0 - x1
 		x0 = x1
 	}
-	fmt.Printf("Number of iterations - %v, number of calculations f(x) - %v\n", count, count*4+1) // because the program calculates f(x0) 1 additional time before exiting the loop
+	fmt.Printf("Number of iterations - %v, number of calculations f(x) - %v\n", count, count*3+1) // because the program calculates f(x0) 1 additional time before exiting the loop
 	return x0
 }
 
