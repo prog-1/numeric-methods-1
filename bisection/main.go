@@ -14,14 +14,14 @@ func SolveBisect(a, b float64, eps float64, f func(float64) float64) float64 {
 	}
 	t := (a + b) / 2 // the midpoint of a and b
 	var count int
-	for ; f(t) != 0 && math.Abs(a-b) > eps; t, count = (a+b)/2, count+1 {
+	for ; f(t) != 0 && math.Abs(b-a) > eps; t, count = (a+b)/2, count+1 {
 		if f(t)*f(a) < 0 {
 			b = t
 		} else {
 			a = t
 		}
 	}
-	fmt.Printf("Number of iterations - %v, number of calculations f(x) - %v\n", count, count*3)
+	fmt.Printf("Number of iterations - %v, number of calculations f(x) - %v\n", count, count*3+1) // because the program calculates f(t) 1 additional time before exiting the loop
 	return t
 }
 
